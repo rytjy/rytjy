@@ -18,6 +18,12 @@ I re-read, an honest coverage label, and an explicit "unverified" tag where I co
 [`ov-harness`](https://github.com/rytjy/ov-harness) — *is the claimed fix commit actually in the
 reviewed revision?* (EN/ZH, with a runnable script)
 
+**Toolkit — backtest audit · 回测审计**
+[`backtest-audit-kit`](https://github.com/rytjy/backtest-audit-kit) — four dependency-free
+checkers that find the four ways a backtest lies: look-ahead leaks, ledger-invariant breaks,
+fee/funding double-counting, mutation blind spots. Service one-pager:
+[`PORTFOLIO.md`](https://github.com/rytjy/backtest-audit-kit/blob/main/PORTFOLIO.md).
+
 **Questions raised on open codebases** — read-only, no bounty, no payment involved, each one a
 question about a specific line rather than a claim of a bug:
 
@@ -51,6 +57,7 @@ Open an issue on any of the above, or message me here on GitHub.
 **公开可查**
 
 - 方法（可复现）：[`ov-harness`](https://github.com/rytjy/ov-harness) —— "修复报告里声称的 fix commit，真的在受审代码里吗？"（中英双语 + 可运行脚本）
+- 工具包（可跑）：[`backtest-audit-kit`](https://github.com/rytjy/backtest-audit-kit) —— 四个零依赖检查器，抓回测最常骗人的四种方式（前视泄漏 / 账本不变量 / 费用·资金费重复计 / 变异盲区）。服务一页说明：[`PORTFOLIO.md`](https://github.com/rytjy/backtest-audit-kit/blob/main/PORTFOLIO.md)。
 - 在开源代码库上提的**具体提问**（只读、无赏金、无金钱往来）：上表 6 条，每条都是针对某一行的提问，不是"漏洞"断言
 
 **联系**：开 issue，或在 GitHub 上私信我。
