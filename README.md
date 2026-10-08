@@ -1,9 +1,10 @@
 # rytjy
 
-Read-only Solidity review. Evidence first.
+Read-only code review — evidence first.
 
-I read small DeFi codebases closely and write up what I find — every item carries a `file:line`
-I re-read, an honest coverage label, and an explicit "unverified" tag where I couldn't prove it.
+I read code closely and write up what I find: **Solidity/DeFi contracts**, and (since 2026-10)
+**backtest & strategy code**. Every item carries a `file:line` I re-read, an honest coverage
+label, and an explicit "unverified" tag where I couldn't prove it.
 
 ## Standards
 
@@ -45,10 +46,11 @@ Open an issue on any of the above, or message me here on GitHub.
 <details>
 <summary>中文</summary>
 
-### 独立合约复核 · 证据优先
+### 独立代码复核 · 证据优先
 
-我读小型 DeFi 代码库，把读到的东西写出来 —— **每条都带 `文件:行号`（我逐行回读过）**、
+我读代码，把读到的东西写出来 —— **每条都带 `文件:行号`（我逐行回读过）**、
 **覆盖率标签**，以及**明确的「未验证」标记**：证明不了的我不装。
+范围：**Solidity / DeFi 合约**，以及（2026-10 起）**回测与策略代码**。
 
 **三条底线**
 
