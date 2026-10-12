@@ -25,6 +25,11 @@ checkers that find the four ways a backtest lies: look-ahead leaks, ledger-invar
 fee/funding double-counting, mutation blind spots. Service one-pager:
 [`PORTFOLIO.md`](https://github.com/rytjy/backtest-audit-kit/blob/main/PORTFOLIO.md).
 
+**Null results — kept on purpose**
+[no-findings](https://github.com/rytjy/no-findings) — two reviews where I read **all** the in-scope
+code (100% SLOC) and nothing was committable. Published because the honest output of a review is
+not always a bug list.
+
 **Questions raised on open codebases** — read-only, no bounty, no payment involved, each one a
 question about a specific line rather than a claim of a bug:
 
@@ -52,6 +57,12 @@ question about a specific line rather than a claim of a bug:
 | july-backtester | [#421 — does rename resolution stay as-of, or can `universe(d)` admit future names?](https://github.com/zachisit/july-backtester/issues/421) |
 | mr-scrooge-v6 | [#9 — is the promote/demote bar measuring the *search* rather than the edge?](https://github.com/BrockStar3540/mr-scrooge-v6/issues/9) |
 
+**Follow-up — one of these was picked up upstream.** A third-party contributor opened
+[quantstats#574](https://github.com/ranaroussi/quantstats/pull/574) implementing the warning
+shape discussed in [#571](https://github.com/ranaroussi/quantstats/issues/571) (with a regression
+test), and a second contributor reviewed it on the branch. Not merged as of 2026-10-12; the
+maintainer has not weighed in.
+
 **Findings** — separated from the questions above: these come with a repro that runs against the
 project’s own code path, and they still state what I did not read.
 
@@ -61,7 +72,8 @@ project’s own code path, and they still state what I did not read.
 
 ## Contact
 
-Open an issue on any of the above, or message me here on GitHub.
+Open an issue on any of the above, or **`@`-mention me in a thread** — GitHub has no direct
+messages, so a mention or an issue is the only way to reach me.
 
 <details>
 <summary>中文</summary>
@@ -82,9 +94,11 @@ Open an issue on any of the above, or message me here on GitHub.
 
 - 方法（可复现）：[`ov-harness`](https://github.com/rytjy/ov-harness) —— "修复报告里声称的 fix commit，真的在受审代码里吗？"（中英双语 + 可运行脚本）
 - 工具包（可跑）：[`backtest-audit-kit`](https://github.com/rytjy/backtest-audit-kit) —— 四个零依赖检查器，抓回测最常骗人的四种方式（前视泄漏 / 账本不变量 / 费用·资金费重复计 / 变异盲区）。服务一页说明：[`PORTFOLIO.md`](https://github.com/rytjy/backtest-audit-kit/blob/main/PORTFOLIO.md)。
+- **阴性结果（故意公开）**：[no-findings](https://github.com/rytjy/no-findings) —— 两次**读完全部**在范围代码（100% SLOC）、没有可交发现的复核。公开它，是因为「复核的诚实产出不一定是一张 bug 清单」。
+- **有一条提问被上游接走了**：第三方贡献者按 #571 讨论的形状开了 [quantstats#574](https://github.com/ranaroussi/quantstats/pull/574)（带回归测试），另一位贡献者在分支上做了审查。截至 2026-10-12 未合并，维护者未表态。
 - 在开源代码库上提的**具体提问**（只读、无赏金、无金钱往来）：上表 21 条，每条都是针对某一行的提问，不是"漏洞"断言
 - 在开源代码库上提的**发现**（可复现）：[`radiusred/tradedesk#179`](https://github.com/radiusred/tradedesk/issues/179) —— 周末融资在 Fri→Mon（3 个日历日）按 5 天计息（周五 ×3 + 周六/周日各 +1），高估 66.7%；附可跑复现
 
-**联系**：开 issue，或在 GitHub 上私信我。
+**联系**：开 issue，或在任意一条线程里 **@ 我** —— GitHub 没有私信，@ 或 issue 是唯一能联系到我的方式。
 
 </details>
