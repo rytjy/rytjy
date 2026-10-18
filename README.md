@@ -13,6 +13,16 @@ label, and an explicit "unverified" tag where I could not prove it.
 3. Reports state what I did **not** read (`coverage: X/Y SLOC`). Below 30% I say it does not
    support a conclusion.
 
+## Work with me
+
+Paid, read-only review — backtest/strategy code, and Solidity/DeFi.
+
+- One specific question: ¥199 / $29 / 30 USDT, answered within 48h
+- Full review under 2,000 SLOC: ¥300–800, 2–4 days
+- If I cannot reproduce the issue, you don't pay.
+
+Scope and terms → [SERVICE.md](https://github.com/rytjy/backtest-audit-kit/blob/main/SERVICE.md)
+
 ## Public work
 
 **Method — reproducible**
