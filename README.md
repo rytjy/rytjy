@@ -35,6 +35,12 @@ checkers that find the four ways a backtest lies: look-ahead leaks, ledger-invar
 fee/funding double-counting, mutation blind spots. Service one-pager:
 [`PORTFOLIO.md`](https://github.com/rytjy/backtest-audit-kit/blob/main/PORTFOLIO.md).
 
+**Measured — what a grid backtest hides**
+[`grid-exit-validation`](https://github.com/rytjy/grid-exit-validation) — a stopless DCA/grid
+rebuilt on BTC 1h, 2024-11 to 2026-10: 397 trades, 100% win rate, realized drawdown -4.4%
+against a worst unrealized loss of -14.4% of peak exposure. Switching the same entries to an
+indicator exit moved max drawdown to -10.9%; fees consumed 37% of gross profit.
+
 **Null results — kept on purpose**
 [no-findings](https://github.com/rytjy/no-findings) — two reviews where I read **all** the in-scope
 code (100% SLOC) and nothing was committable. Published because the honest output of a review is
