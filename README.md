@@ -91,6 +91,8 @@ project’s own code path, and they still state what I did not read.
 | Project | Finding |
 |---|---|
 | tradedesk | [#179 — weekend financing books 5 days for a 3-day Fri→Mon span (Friday ×3 + Sat/Sun counted again) — repro included](https://github.com/radiusred/tradedesk/issues/179) |
+| [`layeredge-staking-gasbomb-poc`](https://github.com/rytjy/layeredge-staking-gasbomb-poc) | unbounded `stakerTierHistory`: ~6.8k gas per extra entry, 30M crossed at ~4,396 entries — `forge test -mt gasBomb`, `bash scripts/must_fail.sh` |
+| [`x402-origin-repro`](https://github.com/rytjy/x402-origin-repro) | SIWX configured origin not canonicalised ([#4325](https://github.com/x402-foundation/x402/pull/4325) / [#4328](https://github.com/x402-foundation/x402/pull/4328)) — offline repro, `go test ./...` / `bash must_fail.sh` |
 
 ## Contact
 
