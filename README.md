@@ -6,6 +6,14 @@ I read code closely and write up what I find: **Solidity/DeFi contracts**, and (
 **backtest & strategy code**. Every item carries a `file:line` I re-read, an honest coverage
 label, and an explicit "unverified" tag where I could not prove it.
 
+## Start here
+
+**I check whether code does what it claims** - backtests and Solidity - and publish the evidence.
+Three entries, all runnable:
+
+- **[12 case studies](https://rytjy.github.io/backtest-audit-kit/)** - each case has its own page with the numbers and a repro.
+- **[The audit kit](https://github.com/rytjy/backtest-audit-kit)** - four dependency-free checkers, 41 tests, MIT.
+- **[A runnable PoC](https://github.com/rytjy/layeredge-staking-gasbomb-poc)** - unbounded array to 30M gas, `forge test -mt gasBomb`.
 ## Standards
 
 1. Every claim carries a `file:line` that I re-read. No "somewhere around here".
