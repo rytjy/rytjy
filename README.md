@@ -36,6 +36,8 @@ Scope and terms → [SERVICE.md](https://github.com/rytjy/backtest-audit-kit/blo
 **Method — reproducible**
 [`ov-harness`](https://github.com/rytjy/ov-harness) — *is the claimed fix commit actually in the
 reviewed revision?* (EN/ZH, with a runnable script)
+[MCP server audit notes](notes/mcp-audit-2026-11.md) — *two MCP servers audited: what I tested,
+what I could not run, and the checklist* (ZH)
 
 **Toolkit — backtest audit · 回测审计**
 [`backtest-audit-kit`](https://github.com/rytjy/backtest-audit-kit) — four dependency-free
