@@ -1,0 +1,9 @@
+S1 submodule add rc: 0 
+S2 submodule config 有 evil2: True
+S3 枚举（未加固前）: ['filter.evil2.clean', 'filter.evil2.smudge']
+S4 对照：submodule 内直接 git status -> marker: False
+S5 harden 后枚举: ['filter.evil2.clean', 'filter.evil2.smudge']
+S6 harden 后 S.git_status 正常: On branch main
+S7 harden 后 super 操作 -> marker: False
+S8 harden 后 rs.git.add(A=True) 成功
+S9 harden 后 add -> marker: False

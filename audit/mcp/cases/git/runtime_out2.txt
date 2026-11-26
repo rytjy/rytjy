@@ -1,0 +1,15 @@
+== H1 真实 pre-commit hook ==
+H1a 未加固 commit -> hook 执行: True
+H1b harden 后 hooksPath: command | /dev/null
+H1c 加固后 commit 成功
+H1d 加固后 commit -> hook 执行: False
+== H2 bare 仓库 ==
+H2 allowed 内 bare 仓库: PASSED, bare = True
+== H3 submodule driver ==
+H3a submodule add rc: 0 
+H3b harden 后 _submodule_drivers: []
+H3c submodule config 已写入 evil2: True
+H3d _submodule_drivers 是否枚举到 evil2: False
+H3e harden 后 git_status 正常: On branch main
+== H4 未配置 --repository ==
+H4 validate_repo_path(/etc, None): PASSED（无限制，属文档行为）

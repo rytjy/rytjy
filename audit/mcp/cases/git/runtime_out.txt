@@ -1,0 +1,18 @@
+== T1 validate_repo_path（配置了 --repository=allowed） ==
+T1 allowed /repo: PASSED
+T1 allowed /repo/../repo: PASSED
+T1 outside: REFUSED -> Repository path '/tmp/case003/outside' is outside the allowe
+T1 allowed/../outside: REFUSED -> Repository path '/tmp/case003/allowed/../outside' is outside
+T1 /etc: REFUSED -> Repository path '/etc' is outside the allowed repository '/t
+T1 symlink->outside: REFUSED -> Repository path '/tmp/case003/allowed/link_out' is outside t
+== T3 仓库自带配置能否让 git 执行程序（filter） ==
+T3a 未加固 checkout -> marker: True
+T3b harden 后 core.hooksPath: command | /dev/null
+T3c 加固后 checkout（GitPython）-> marker: False
+T3e 对照：进程外 git checkout -> marker: True
+T3d .git/config 里 evil 配置仍在: True
+== T2 flag 注入 ==
+T2 -x: REFUSED -> Invalid target: '-x' - cannot start with '-'
+T2 HEAD..-x: REFUSED -> Invalid target: 'HEAD..-x' - range endpoint '-x' cannot star
+== T4 validate_opened_repo（.git 文件指向外部） ==
+T4: REFUSED -> InvalidGitRepositoryError: /tmp/case003/allowed

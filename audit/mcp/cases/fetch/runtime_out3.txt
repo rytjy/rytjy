@@ -1,0 +1,15 @@
+== A. classify ==
+  127.0.0.1            public=False
+  169.254.169.254      public=False
+  10.0.0.1             public=False
+  100.100.100.200      public=False
+  ::1                  public=False
+  93.184.216.34        public=True
+== B. refuse_private_addresses ==
+  loopback  REFUSED -> ToolError
+  metadata  REFUSED -> ToolError
+  public    ALLOWED
+== C. real client (no proxy) ==
+  http://127.0.0.1:8765/                        -> ToolError: Refused to connect to 127.0.0.1: it resolves to 127.0.0.1, w
+  http://169.254.169.254/latest/meta-data/      -> ToolError: Refused to connect to 169.254.169.254: it resolves to 169.25
+  file:///etc/passwd                            -> UnsupportedProtocol: Request URL is missing an 'http://' or 'https://' protocol.

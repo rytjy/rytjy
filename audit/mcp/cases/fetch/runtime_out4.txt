@@ -1,0 +1,17 @@
+== D 重定向目标：请求钩子逐地址判定（单元级） ==
+D1 http://169.254.169.254/latest/meta-data/ -> REFUSED: Refused to fetch http://169.254.169.254/latest/meta-data/: 169.254.169.254 resol
+D2 http://127.0.0.1:8765/ -> REFUSED: Refused to fetch http://127.0.0.1:8765/: 127.0.0.1 resolves to 127.0.0.1, which 
+D3 http://100.100.100.200/latest/meta-data/ -> REFUSED: Refused to fetch http://100.100.100.200/latest/meta-data/: 100.100.100.200 resol
+D4 http://[::1]/ -> REFUSED: Refused to fetch http://[::1]/: ::1 resolves to ::1, which is not a public addre
+D5 http://10.0.0.1/ -> REFUSED: Refused to fetch http://10.0.0.1/: 10.0.0.1 resolves to 10.0.0.1, which is not a
+D6 http://93.184.216.34/ -> ALLOWED
+== D7 重定向跳转是否逐跳经过请求钩子（端到端，记录器代替守卫） ==
+D7 exception: ConnectTimeout 
+D7 hops seen by hook: ['http://127.0.0.1:8765/r1', 'http://169.254.169.254/latest/meta-data/']
+== E rebinding（模拟：首查 public → 连接期 private，走真 client） ==
+E1 端到端 -> REFUSED: Refused to connect to rebind.test: it resolves to 127.0.0.1, which is not a public ad
+E2 解析次数: 2 | 连接期 vet 次数: 1
+E3 源码: vet 传进 pin_direct_connections = True
+== F allow_private_ips=True（端到端） ==
+F1 allow=True 127.0.0.1 -> 200 b'ok-private'
+F2 allow=False 127.0.0.1 -> REFUSED: Refused to connect to 127.0.0.1: it resolves to 127.0.0.1, which is no
