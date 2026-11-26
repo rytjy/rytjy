@@ -1,0 +1,255 @@
+{
+  "note": "MCP 审计回归包：版本一变就跑同一套用例，出差异表。模式是行级正则在输出里必须命中。",
+  "cases": [
+    {
+      "id": "fs-001",
+      "title": "server-filesystem 路径越界",
+      "cwd": "audit/mcp/fs",
+      "version": {
+        "kind": "npm",
+        "path": "audit/mcp/fs/package/package.json",
+        "baseline": "2.4.0"
+      },
+      "runs": [
+        {
+          "name": "t2",
+          "cmd": [
+            "node",
+            "t2.mjs"
+          ],
+          "timeout": 120,
+          "checks": [
+            [
+              "legit 放行",
+              "^legit\\s+ALLOWED"
+            ],
+            [
+              "dotdot 逃逸被拒",
+              "^dotdot-escape\\s+DENIED"
+            ],
+            [
+              "目录符号链接→/etc 被拒",
+              "^symlink-dir-etc\\s+DENIED"
+            ],
+            [
+              "文件符号链接→/tmp 被拒",
+              "^symlink-file-tmp\\s+DENIED"
+            ],
+            [
+              "目录内符号链接放行",
+              "^inner-symlink\\s+ALLOWED"
+            ],
+            [
+              "根内新文件放行",
+              "^new-file\\s+ALLOWED"
+            ],
+            [
+              "/proc/self/environ 被拒",
+              "^proc-self-env\\s+DENIED"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fetch-002",
+      "title": "mcp-server-fetch SSRF 面",
+      "cwd": "audit/mcp/fetch",
+      "version": {
+        "kind": "pip",
+        "dist": "mcp-server-fetch",
+        "python": ".venv/bin/python",
+        "baseline": "2026.11.18"
+      },
+      "runs": [
+        {
+          "name": "base12",
+          "cmd": [
+            ".venv/bin/python",
+            "runtime_test.py"
+          ],
+          "timeout": 180,
+          "checks": [
+            [
+              "127.0.0.1 判私网",
+              "127\\.0\\.0\\.1\\s+public=False"
+            ],
+            [
+              "169.254.169.254 判私网",
+              "169\\.254\\.169\\.254\\s+public=False"
+            ],
+            [
+              "100.100.100.200 判私网",
+              "100\\.100\\.100\\.200\\s+public=False"
+            ],
+            [
+              "公网地址判 public",
+              "93\\.184\\.216\\.34\\s+public=True"
+            ],
+            [
+              "loopback 逐地址拒",
+              "loopback\\s+REFUSED"
+            ],
+            [
+              "metadata 逐地址拒",
+              "metadata\\s+REFUSED"
+            ],
+            [
+              "public 逐地址放行",
+              "public\\s+ALLOWED"
+            ],
+            [
+              "真实 client 拒 127.0.0.1",
+              "http://127\\.0\\.0\\.1:8765/\\s+-> ToolError"
+            ],
+            [
+              "file:// 被协议白名单拒",
+              "file:///etc/passwd\\s+-> UnsupportedProtocol"
+            ]
+          ]
+        },
+        {
+          "name": "supp4",
+          "cmd": [
+            ".venv/bin/python",
+            "runtime_test4.py"
+          ],
+          "timeout": 180,
+          "checks": [
+            [
+              "重定向目标 metadata 拒",
+              "^D1 .*REFUSED"
+            ],
+            [
+              "重定向目标公网放行",
+              "^D6 .*ALLOWED"
+            ],
+            [
+              "重定向逐跳过钩子",
+              "D7 hops seen by hook: \\[.*169\\.254\\.169\\.254"
+            ],
+            [
+              "rebinding 模拟连接期拒",
+              "E1 端到端 -> REFUSED"
+            ],
+            [
+              "allow_private_ips=True 放行",
+              "F1 allow=True 127\\.0\\.0\\.1 -> 200"
+            ],
+            [
+              "allow_private_ips=False 拒",
+              "F2 allow=False 127\\.0\\.0\\.1 -> REFUSED"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "git-003",
+      "title": "mcp-server-git 路径/flag/hardening",
+      "cwd": "audit/mcp/git",
+      "version": {
+        "kind": "pip",
+        "dist": "mcp-server-git",
+        "python": ".venv/bin/python",
+        "baseline": "2026.11.18"
+      },
+      "runs": [
+        {
+          "name": "base",
+          "cmd": [
+            ".venv/bin/python",
+            "runtime_test.py"
+          ],
+          "timeout": 180,
+          "checks": [
+            [
+              "外部目录被拒",
+              "T1 outside: REFUSED"
+            ],
+            [
+              "/etc 被拒",
+              "T1 /etc: REFUSED"
+            ],
+            [
+              "符号链接逃逸被拒",
+              "T1 symlink->outside: REFUSED"
+            ],
+            [
+              "flag -x 被拒",
+              "T2 -x: REFUSED"
+            ],
+            [
+              "范围端点 -x 被拒",
+              "T2 HEAD\\.\\.-x: REFUSED"
+            ],
+            [
+              "未加固基线会执行 filter",
+              "T3a 未加固 checkout -> marker: True"
+            ],
+            [
+              "hooksPath 覆盖生效",
+              "T3b harden 后 core.hooksPath: command \\| /dev/null"
+            ],
+            [
+              "加固后 filter 不执行",
+              "T3c 加固后 checkout（GitPython）-> marker: False"
+            ]
+          ]
+        },
+        {
+          "name": "supp",
+          "cmd": [
+            ".venv/bin/python",
+            "runtime_test2.py"
+          ],
+          "timeout": 180,
+          "checks": [
+            [
+              "未加固基线会执行 hook",
+              "H1a 未加固 commit -> hook 执行: True"
+            ],
+            [
+              "加固后 hook 不执行",
+              "H1d 加固后 commit -> hook 执行: False"
+            ],
+            [
+              "allowed 内 bare 仓库放行",
+              "H2 allowed 内 bare 仓库: PASSED"
+            ],
+            [
+              "未配 --repository 时不限制",
+              "H4 .*PASSED"
+            ]
+          ]
+        },
+        {
+          "name": "supp2",
+          "cmd": [
+            ".venv/bin/python",
+            "runtime_test3.py"
+          ],
+          "timeout": 240,
+          "checks": [
+            [
+              "submodule 驱动可枚举",
+              "S3 枚举（未加固前）: \\['filter\\.evil2\\.clean'"
+            ],
+            [
+              "未加固基线 submodule clean 执行",
+              "C1 对照 submodule 内 git add -> marker: True"
+            ],
+            [
+              "加固后 add 正常",
+              "C2 harden 后 add 成功"
+            ],
+            [
+              "加固后 submodule clean 不执行",
+              "C3 harden 后 add -> marker: False"
+            ]
+          ]
+        }
+      ]
+    }
+  ]
+}
